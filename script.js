@@ -1,6 +1,6 @@
 
-HmScore = 0
-PcScore = 0
+let HmScore = 0
+let PcScore = 0
 
 function playRound(humanChoice, computerChoice){
 
@@ -48,7 +48,8 @@ function getComputerChoice(){
 }
 
 function getHumanChoice(){
-    let HmChoice = prompt("Enter (rock, paper or scissors):");
+    let promptChoice = prompt("Enter (rock, paper or scissors):");
+    let HmChoice = promptChoice.toLocaleLowerCase()
     if (HmChoice == 'rock'){
         HmChoice = 1 
     }
