@@ -2,10 +2,33 @@
 let HmScore = 0
 let PcScore = 0
 
-function playRound(humanChoice, computerChoice){
+let botoes = document.getElementById("botoes")
 
+let rock = document.getElementById("1-rock")
+let paper = document.getElementById("2-paper")
+let scissor = document.getElementById("3-scissor")
+let resultado = document.getElementById("resultado")
+
+botoes.addEventListener("click",(event)=>{
+    let alvo = event.target.id
+    switch(alvo){
+        case '1-rock':
+        playRound(1,getComputerChoice())
+        break;
+
+        case '2-paper':
+        playRound(2,getComputerChoice())
+        break;
+        
+        case '3-scissor':
+        playRound(3,getComputerChoice())
+        break;
+   }
+})
+
+
+function playRound(humanChoice, computerChoice){
     if (humanChoice == computerChoice){
-        //empate
     }
     else if ( humanChoice == 1 && computerChoice == 2){
         PcScore ++
@@ -25,40 +48,25 @@ function playRound(humanChoice, computerChoice){
     else if ( humanChoice == 3 && computerChoice == 1){
         PcScore ++
     }
-    console.log("HumanScore:" + HmScore + "Jogou: " + humanChoice)
-    console.log("PcScore:" + PcScore + "Jogou: " + computerChoice)
-}
-
-
-function playGame(){
-    for(let i = 0; i < 5; i++){
-        let HumanSelection = getHumanChoice();
-        let ComputerSelection = getComputerChoice();
-        playRound(HumanSelection,ComputerSelection); 
+    
+    if(PcScore == 5){
+        resultado.textContent = "PC WIN :("
+        HmScore = 0
+        PcScore = 0
     }
-
+    else if(HmScore == 5){
+        resultado.textContent = "YOU WIN !!!"
+        HmScore = 0
+        PcScore = 0
+    }
+    else{
+    resultado.textContent = "You:" + HmScore + "  PC:" + PcScore
+    }
 }
-playGame();
 
 
 function getComputerChoice(){
     let pcChoice = Math.floor(Math.random()*3)+1
     return pcChoice
-    console.log(" getPcchoice :" + pcChoice)
 }
 
-function getHumanChoice(){
-    let promptChoice = prompt("Enter (rock, paper or scissors):");
-    let HmChoice = promptChoice.toLocaleLowerCase()
-    if (HmChoice == 'rock'){
-        HmChoice = 1 
-    }
-    if (HmChoice == 'paper'){
-        HmChoice = 2 
-    }
-    if (HmChoice == 'scissors'){
-        HmChoice = 3
-    }
-    return HmChoice
-    console.log(" getHumanchoice :" + HmChoice)
-}
